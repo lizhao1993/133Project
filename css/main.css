@@ -1,33 +1,10 @@
-@import url(https://fonts.googleapis.com/css?family=Raleway);
-
-.cp {
-	font-size: 10px;
-}
-
-body{
-	padding-left: 100px;
-	font-family: 'Raleway', sans-serif;
-}
-
-h1{
-	padding-top: 100px;
-	font-size: 70px;
+.jumbotron{
+	background-color: #0099CC !important;
+	color: white !important;
+	padding: 100px 25px !important;
 }
 
 select{
-	height: 40px;
-	width: 200px;
-}
 
-table {
-    border-collapse: collapse;
-}
-
-table, th, td{
-	border: 1px solid black;
-
-}
-td{
-	width: 100px;
-	padding: 10px;
+        width: 200px !important;
 }
