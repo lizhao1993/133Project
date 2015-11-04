@@ -1,3 +1,6 @@
+
+<?php $entity =  $_POST['Entity']; ?>
+
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -12,11 +15,13 @@
 
         <link rel="stylesheet" type="text/css" href="./css/main.css">
 
-          <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
       <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
     </head>
+
+
     <body>
 
 
@@ -26,45 +31,57 @@
               <a class="navbar-brand" href="#">DBLP Modeling</a>
             </div>
             <div>
-<!--               <ul class="nav navbar-nav">
-                <li class="active"><a href="index.html">Home</a></li>
-                <li><a href="page2.html">Page 1</a></li>
-                <li><a href="page3.html">Page 2</a></li>
 
-              </ul>
-            </div> -->
           </div>
-        </nav>        
+        </nav>   
+
         <div class="jumbotron text-center">
             <h1>DBLP Explorer</h1>
             <p>Submit query below.</p>
         </div>
         <div class="container text-center">
 
-            <select class="form-control">
+           <!--  <select class="form-control">
                 <option>Author</option>
-            </select>
+            </select> -->
 
             <br><br>
-            <table class="table table-bordered" >
-                <tr>
-                    <td>Author</td>
-                    <td>Author Id</td>
+            <table id = 'table' class="table table-bordered" >
+                <tr class = 'schema'>
                 </tr>
             </table>
 
             <br><br>
 
-        	<!-- <a href=""><img src="./images/32pxadd182.png"></a> -->
 
             <form action = 'query.php'>
-<!--             	<div class = 'cp'>
-            		Icons made by 
-            		<a href="http://www.flaticon.com/authors/google" title="Google">Google</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>             is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>
-            	</div> -->
+
              <button type="submit" class="btn btn-default">Submit</button>
             </form>
         </div>
+    <script type="text/javascript">	
+    	var entity = "<?php echo $entity ; ?>"; 
+
+    	switch(entity){
+    		case 'Author':
+    			$('.schema').append('<td>author</td>');
+    			$('.schema').append('<td>authorId</td>');
+    			$('#table').append('<tr><td>  <input type = text name = input placeholder = query ></input ></td> <td> </td></tr>');
+    			break;
+    		case 'Editor':
+    			$('.schema').append('<td>editorId</td>');
+    			$('.schema').append('<td>editor</td>');
+    			break;
+    		case 'Publisher':
+    			$('.schema').append('<td>publisherId</td>');
+    			$('.schema').append('<td>publisher</td>');
+    			break;
+
+    		default:
+    			console.log('no entity chosen');
+    	}	
+
+    </script>
 
     </body>
 </html>
