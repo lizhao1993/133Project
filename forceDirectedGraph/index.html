@@ -1,73 +1,4 @@
-<?php
-	$servername = "localhost";
-	$username = "Cecilia";
-	$password = "qwerty";
-	// $password = NULL;
-
-	$dbname = "DBLP";
-
-	try{
-		// Create connection
-		$conn = new mysqli($servername, $username, $password, $dbname);
-		// Check connection
-		if ($conn->connect_error) {
-		    die("Connection failed: " . $conn->connect_error);
-		} 
-		//create query
-
-		$sql  = "SELECT author.name FROM `author` WHERE 1;"; 
-
-		//send query
-		$result = $conn->query($sql);
-
-		$numRows =	mysqli_num_rows($result);
-
-
-		$counter = 1;
-		$doc = '';
-		$doc .=  '{ "nodes":[';
-
-		$jsonFile = fopen($_SERVER['DOCUMENT_ROOT']."/133Project/author.json", "w") or die("unable to open file!");
-
-		//loop through resulting rows
-		foreach($result as $row){
-			
-		 	$node =  '{"author":"' . $row["name"] . '"}';
-		 	$doc .= $node;
-		 	if ($counter != $numRows){
-		 		$doc .= ",";
-		 	}
-		 	$counter++;
-		 	// $doc .=  "/n";
-	
-
-		 	
-		 	
-		}
-		$doc .= '],';
-		$doc .= '"links":[ ]}';
-		// echo exec('whoami');
-		fwrite($jsonFile, $doc);
-
-		echo $doc;
-		fclose($jsonFile);
-
-
-
-
-	}
-	catch (mysqli_sql_exception $e){
-        	throw new MySQLiQueryException($SQL, $e->getMessage(), $e->getCode());
-
-	}
-
-	//Close connection
-	mysqli_close($conn);
-?>
-
-
-
-
+<!-- get a working example of business logic -->
 <!DOCTYPE html>
 <meta charset="utf-8">
 <style>
@@ -87,7 +18,7 @@
 
 </style>
 <body>
-<script src="./forceDirectedGraph/d3/d3.min.js"></script>
+<script src="./d3/d3.min.js"></script>
 <script>
 // position on screen
 var width = 960,
@@ -105,7 +36,7 @@ var svg = d3.select("body").append("svg")
     .attr("width", width)
     .attr("height", height);
 
-d3.json("/133Project/author.json ", function(error, graph) {
+d3.json("test.json", function(error, graph) {
   if (error) throw error;
 
   var nodeMap = {};

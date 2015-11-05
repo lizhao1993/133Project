@@ -35,15 +35,12 @@
           </div>
         </nav>   
 
-        <div class="jumbotron text-center">
+  <!--       <div class="jumbotron text-center">
             <h1>DBLP Explorer</h1>
             <p>Submit query below.</p>
-        </div>
+        </div> -->
         <div class="container text-center">
 
-           <!--  <select class="form-control">
-                <option>Author</option>
-            </select> -->
 
             <br><br>
             <table id = 'table' class="table table-bordered" >
@@ -66,15 +63,19 @@
     		case 'Author':
     			$('.schema').append('<td>author</td>');
     			$('.schema').append('<td>authorId</td>');
-    			$('#table').append('<tr><td>  <input type = text name = input placeholder = query ></input ></td> <td> </td></tr>');
+    			$('#table').append('<tr><td>  <input type = text name = input placeholder = query ></input ></td> <td>  <input type = text name = input placeholder = query ></input ></td></tr>');
     			break;
+
     		case 'Editor':
     			$('.schema').append('<td>editorId</td>');
     			$('.schema').append('<td>editor</td>');
+    			$('#table').append('<tr><td>  <input type = text name = input placeholder = query ></input ></td> <td>  <input type = text name = input placeholder = query ></input ></td></tr>');
     			break;
+
     		case 'Publisher':
     			$('.schema').append('<td>publisherId</td>');
     			$('.schema').append('<td>publisher</td>');
+    			$('#table').append('<tr><td>  <input type = text name = input placeholder = query ></input ></td> <td>  <input type = text name = input placeholder = query ></input ></td></tr>');
     			break;
 
     		default:
