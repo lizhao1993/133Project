@@ -1,7 +1,5 @@
 <?php
-	$servername = "localhost";
-	$username = "Cecilia";
-	$password = "qwerty";
+
 	// $password = NULL;
 
 	$dbname = "DBLP";
