@@ -4,15 +4,45 @@
 	padding: 100px 25px !important;
 }
 
-select{
+.queryform select{
 
-        width: 200px !important;
-        margin: 0 auto !important;
+        width: 150px !important;
+        /*margin: 0 auto !important;*/
+        display: inline !important;
 }
+.queryform{
+
+	display: inline !important;
+}
+.queryform p{
+
+	display: inline !important; 
+}
+.fromSelect {
+
+	display: inline-block !important;
+}
+.SELECT{
+	display: inline-block !important;
+
+}
+
+
 
 .cp {
 	font-size: 10px !important;
 }
+
+.queryform img{
+	display: inline !important;
+}
 .table{
 	margin-top: 10%;
+}
+span.pquery{
+	margin-left: 40%;
+	display: inline-block !important;
+	width: 100px !important;
+	
+	
 }

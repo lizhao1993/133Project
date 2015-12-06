@@ -1,5 +1,37 @@
 
-<?php $entity =  $_POST['Entity']; ?>
+<?php $SELECT=  $_POST["SELECT"]; 
+$FROM = $_POST['FROM'];
+// echo gettype($entity);
+$query = "SELECT ";
+$index = 0;
+$len = sizeof($SELECT) -1;
+foreach ($SELECT as  $value) {
+    if ($index < $len){
+        $query = $query . $value. ', ' ;
+    }
+    else{
+        $query = $query . $value;
+    }
+    $index++;
+
+
+}
+$len = sizeof($FROM) - 1;
+$index = 0;
+$query = $query . '<br>'. "FROM ";
+foreach ($FROM as $value) {
+   
+    if ($index < $len){
+        $query = $query . $value. ', ' ;
+    }
+    else{
+        $query = $query . $value;
+    }
+    $index++;
+
+}
+echo $query;
+?>
 
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -25,7 +57,7 @@
     <body>
 
 
-        <nav class="navbar navbar-inverse  navbar-fixed-top">
+       <!--  <nav class="navbar navbar-inverse  navbar-fixed-top">
           <div class="container-fluid">
             <div class="navbar-header">
               <a class="navbar-brand" href="#">DBLP Modeling</a>
@@ -33,7 +65,7 @@
             <div>
 
           </div>
-        </nav>   
+        </nav>   --> 
 
   <!--       <div class="jumbotron text-center">
             <h1>DBLP Explorer</h1>
@@ -57,30 +89,8 @@
             </form>
         </div>
     <script type="text/javascript">	
-    	var entity = "<?php echo $entity ; ?>"; 
 
-    	switch(entity){
-    		case 'Author':
-    			$('.schema').append('<td>author</td>');
-    			$('.schema').append('<td>authorId</td>');
-    			$('#table').append('<tr><td>  <input type = text name = input placeholder = query ></input ></td> <td>  <input type = text name = input placeholder = query ></input ></td></tr>');
-    			break;
 
-    		case 'Editor':
-    			$('.schema').append('<td>editorId</td>');
-    			$('.schema').append('<td>editor</td>');
-    			$('#table').append('<tr><td>  <input type = text name = input placeholder = query ></input ></td> <td>  <input type = text name = input placeholder = query ></input ></td></tr>');
-    			break;
-
-    		case 'Publisher':
-    			$('.schema').append('<td>publisherId</td>');
-    			$('.schema').append('<td>publisher</td>');
-    			$('#table').append('<tr><td>  <input type = text name = input placeholder = query ></input ></td> <td>  <input type = text name = input placeholder = query ></input ></td></tr>');
-    			break;
-
-    		default:
-    			console.log('no entity chosen');
-    	}	
 
     </script>
 
