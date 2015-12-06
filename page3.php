@@ -1,7 +1,7 @@
 
 <?php $SELECT=  $_POST["SELECT"]; 
 $FROM = $_POST['FROM'];
-// echo gettype($entity);
+
 $query = "SELECT ";
 $index = 0;
 $len = sizeof($SELECT) -1;

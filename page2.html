@@ -34,23 +34,21 @@
 
         </div>  
         
-
- <!--        <select name = 'Entity' class = "form-control" form = 'entityForm'>
-            <option>Author</option>
-            <option>Editor</option>
-            <option>Publisher</option>
-            <option>Entity</option>
-
-        </select> -->
+        <!-- THE SQL UI -->
 
 
       
+        <!-- this is a class for styling the UI in main.css..all styling goes there -->
+        <div class = 'queryform'> 
 
-        <div class = 'queryform'>
-        <span class = 'pquery'><p >SELECT</p> </span><div class = 'SELECT'></div>
-                       
+          <!-- SELECT , all dropwdown for select go here-->
+          <!-- the <span> is just to help with styling -->
+        <span class = 'pquery'><p >SELECT</p> </span>
 
-                      <br> <br>
+        <!-- all dropdown of SELECT will be appended to this div  -->
+        <div class = 'SELECT'></div> 
+        <br> <br> 
+          <!-- FROM , all dropdown for from go here-->
         <span class = 'pquery'><p>FROM </p></span>
                       <div class = 'fromSelect'>
                           <select  name = 'SELECT[]' onchange = "changeAttributes(this.value)"; class = "form-control" form = 'entityForm'>
@@ -68,24 +66,29 @@
                               <option>www</option>
 
                           </select> 
+                          <!-- initially starts with these tables -->
+
+                          <!-- the function changeAttributes() is called when a table is selected,
+                           (function is defined below) 
+                           -->
                     </div>
+
+                    <!-- the plus sign, calls a function defined below -->
                     <img onclick = 'fromJoin()'; id= 'fromPlus' src="./images/add182.png"> <br> <br>
 
 
-      
-        <span class = 'pquery'><p>WHERE</p></span>  <select  name = 'Entity[]' class = "form-control" form = 'entityForm'>
-                       
+        <!-- WHERE , add dropdowns here-->
 
-                      </select> <img id= 'wherePlus' src="./images/add182.png"><br>
+        <span class = 'pquery'><p>WHERE</p></span>  <br>
 
     
         </div>
 
         <br><br>
 
-  <!--       <form  id = 'entityForm' action ='page3.php' method = 'post'>
-             <button type="submit" class="btn btn-default">Submit</button>
-        </form> -->
+        <!-- END of SQL UI -->
+
+      <!-- FORM, sends the dropdown user selects to page3.php -->
       <div class="container text-center">
          <form  id = 'entityForm' action ='page3.php' method = 'post'>
              <button type="submit" class="btn btn-default">Submit</button>
@@ -95,7 +98,7 @@
         </div>  
         <script>
       
-
+        // function to add another table dropwdown in the FROM field if the plus sign is pressed
 
         function fromJoin(){
           
@@ -105,13 +108,25 @@
 
 
         };
+
+        // function adds the attributes of that table selected in FROM to SELECT by appending to <div class = SELECT >
+
+
         
         function changeAttributes(tableName){
 
+          // article is only table with a different schema so it is a special case
           if (tableName == 'Article'){
+            
+            // the appending
+            // jquery doesn't like tabs..hence why it looks terrible :(
 
+            //SELECT name = FROM[] is what puts what the user selects into an array called FROM..
+            // this array is used in page3.php to get all the tables in FROM the user selected
+            // 
              $(".SELECT").append("<select id = 'SELECT' name = 'FROM[] class = 'form-control' form = 'entityForm'><option></option><option>" +tableName+ ".Author</option><option>" +tableName +".Editor</option><option>"+tableName +".Publisher</option><option>"+tableName +".Title</option><option>"+tableName +".BookTitle</option><option>"+tableName +".Year</option><option>"+tableName +".Pages</option><option>"+tableName +".Address</option><option>"+tableName +".Journal</option><option>"+tableName +".Volume</option><option>"+tableName +".Number</option><option>"+tableName +".Month</option><option>"+tableName +".url</option><option>"+tableName +".ee</option><option>"+tableName +".cdrom</option><option>"+tableName +".cite</option><option>"+tableName +".Note</option><option>"+tableName +".Crossref</option><option>"+tableName +".ISBN</option><option>"+tableName +".Series</option><option>"+tableName +".School</option><option>"+tableName +".Chapter</option><option>"+tableName +".Write</option><option>"+tableName +".Edits</option><option>"+tableName +".key</option><option>"+tableName +".mdate</option><option>"+tableName +".publtype</option><option>"+tableName +".reviewid</option><option>"+tableName +".rating</option></select> <img id= 'selectPlus' src='./images/add182.png'>  ");
           }
+          // all other tables
           else{
             $(".SELECT").append("<select id = 'SELECT' name = FROM[] class = 'form-control' form = 'entityForm'><option></option><option>" +tableName+ ".Author</option><option>" +tableName +".Editor</option><option>"+tableName +".Publisher</option><option>"+tableName +".Title</option><option>"+tableName +".BookTitle</option><option>"+tableName +".Year</option><option>"+tableName +".Pages</option><option>"+tableName +".Address</option><option>"+tableName +".Journal</option><option>"+tableName +".Volume</option><option>"+tableName +".Number</option><option>"+tableName +".Month</option><option>"+tableName +".url</option><option>"+tableName +".ee</option><option>"+tableName +".cdrom</option><option>"+tableName +".cite</option><option>"+tableName +".Note</option><option>"+tableName +".Crossref</option><option>"+tableName +".ISBN</option><option>"+tableName +".Series</option><option>"+tableName +".School</option><option>"+tableName +".Chapter</option><option>"+tableName +".Write</option><option>"+tableName +".Edits</option><option>"+tableName +".key</option><option>"+tableName +".mdate</option><option>"+tableName +".publtype</option><option></select> <img id= 'selectPlus' src='./images/add182.png'>  ");
           }
