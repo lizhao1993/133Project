@@ -1,6 +1,7 @@
 
 <?php $SELECT=  $_POST["SELECT"]; 
 $FROM = $_POST['FROM'];
+$WHERE = $_POST["WHERE"];
 
 $query = "SELECT ";
 $index = 0;
@@ -28,6 +29,14 @@ foreach ($FROM as $value) {
         $query = $query . $value;
     }
     $index++;
+
+}
+$query = $query . "<br> WHERE ";
+foreach ($WHERE as $value) {
+   
+  
+    $query = $query . $value;
+ 
 
 }
 echo $query;

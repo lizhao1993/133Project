@@ -26,7 +26,13 @@
 	display: inline-block !important;
 
 }
+.WHERE{
+	display: inline-block !important;
+}
 
+#minus{
+	display: inline !important;
+}
 
 
 .cp {
