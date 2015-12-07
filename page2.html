@@ -23,13 +23,7 @@
             <div class="navbar-header">
               <a class="navbar-brand" href="#">DBLP Modeling</a>
             </div>
-            <!-- <div>
-              <ul class="nav navbar-nav">
-                <li class="active"><a href="index.html">Home</a></li>
-                <li><a href="page2.html">Page 1</a></li>
-                <li><a href="page3.html">Page 2</a></li>
-              </ul>
-            </div> -->
+
           </div>
         </nav>
 
@@ -39,23 +33,109 @@
 
 
         </div>  
-        <div class="container text-center">
+        
+        <!-- THE SQL UI -->
 
-        <select name = 'Entity' class = "form-control" form = 'entityForm'>
-            <option>Author</option>
-            <option>Editor</option>
-            <option>Publisher</option>
-            <option>Entity</option>
 
-        </select>
+      
+        <!-- this is a class for styling the UI in main.css..all styling goes there -->
+        <div class = 'queryform'> 
 
+          <!-- SELECT , all dropwdown for select go here-->
+          <!-- the <span> is just to help with styling -->
+        <span class = 'pquery'><p >SELECT</p> </span>
+
+        <!-- all dropdown of SELECT will be appended to this div  -->
+        <div class = 'SELECT'></div> 
+        <br> <br> 
+          <!-- FROM , all dropdown for from go here-->
+        <span class = 'pquery'><p>FROM </p></span>
+                      <div class = 'fromSelect'>
+                          <select  name = 'SELECT[]' onchange = "changeAttributes(this.value)"; class = "form-control" form = 'entityForm'>
+                              <option></option>
+                              <option>Article</option>
+                              <option>Inproceddings</option>
+                              <option>Procedings</option>
+                              <option>Book</option>
+                              <option>InCollection</option>
+                              <option>Phdthesis</option>
+                              <option>Mastersthesis</option>
+                              <option>Writes</option>
+                              <option>Edits</option>
+                              <option>Publishes</option>
+                              <option>www</option>
+
+                          </select> 
+                          <!-- initially starts with these tables -->
+
+                          <!-- the function changeAttributes() is called when a table is selected,
+                           (function is defined below) 
+                           -->
+                    </div>
+
+                    <!-- the plus sign, calls a function defined below -->
+                    <img onclick = 'fromJoin()'; id= 'fromPlus' src="./images/add182.png"> <br> <br>
+
+
+        <!-- WHERE , add dropdowns here-->
+
+        <span class = 'pquery'><p>WHERE</p></span>  <br>
+
+    
+        </div>
 
         <br><br>
-        <form  id = 'entityForm' action ='page3.php' method = 'post'>
+
+        <!-- END of SQL UI -->
+
+      <!-- FORM, sends the dropdown user selects to page3.php -->
+      <div class="container text-center">
+         <form  id = 'entityForm' action ='page3.php' method = 'post'>
              <button type="submit" class="btn btn-default">Submit</button>
-        </form>
+        </form> 
 
 
         </div>  
+        <script>
+      
+        // function to add another table dropwdown in the FROM field if the plus sign is pressed
+
+        function fromJoin(){
+          
+          
+          $(".fromSelect").append("<select name = 'SELECT[]' class = 'form-control' form = 'entityForm' onchange = 'changeAttributes(this.value)'> <option></option><option>Article</option><option>Inproceddings</option><option>Procedings</option><option>Book</option><option>InCollection</option><option>Phdthesis</option><option>Mastersthesis</option><option>Writes</option><option>Edits</option><option>Publishes</option> </select>");
+       
+
+
+        };
+
+        // function adds the attributes of that table selected in FROM to SELECT by appending to <div class = SELECT >
+
+
+        
+        function changeAttributes(tableName){
+
+          // article is only table with a different schema so it is a special case
+          if (tableName == 'Article'){
+            
+            // the appending
+            // jquery doesn't like tabs..hence why it looks terrible :(
+
+            //SELECT name = FROM[] is what puts what the user selects into an array called FROM..
+            // this array is used in page3.php to get all the tables in FROM the user selected
+            // 
+             $(".SELECT").append("<select id = 'SELECT' name = 'FROM[] class = 'form-control' form = 'entityForm'><option></option><option>" +tableName+ ".Author</option><option>" +tableName +".Editor</option><option>"+tableName +".Publisher</option><option>"+tableName +".Title</option><option>"+tableName +".BookTitle</option><option>"+tableName +".Year</option><option>"+tableName +".Pages</option><option>"+tableName +".Address</option><option>"+tableName +".Journal</option><option>"+tableName +".Volume</option><option>"+tableName +".Number</option><option>"+tableName +".Month</option><option>"+tableName +".url</option><option>"+tableName +".ee</option><option>"+tableName +".cdrom</option><option>"+tableName +".cite</option><option>"+tableName +".Note</option><option>"+tableName +".Crossref</option><option>"+tableName +".ISBN</option><option>"+tableName +".Series</option><option>"+tableName +".School</option><option>"+tableName +".Chapter</option><option>"+tableName +".Write</option><option>"+tableName +".Edits</option><option>"+tableName +".key</option><option>"+tableName +".mdate</option><option>"+tableName +".publtype</option><option>"+tableName +".reviewid</option><option>"+tableName +".rating</option></select> <img id= 'selectPlus' src='./images/add182.png'>  ");
+          }
+          // all other tables
+          else{
+            $(".SELECT").append("<select id = 'SELECT' name = FROM[] class = 'form-control' form = 'entityForm'><option></option><option>" +tableName+ ".Author</option><option>" +tableName +".Editor</option><option>"+tableName +".Publisher</option><option>"+tableName +".Title</option><option>"+tableName +".BookTitle</option><option>"+tableName +".Year</option><option>"+tableName +".Pages</option><option>"+tableName +".Address</option><option>"+tableName +".Journal</option><option>"+tableName +".Volume</option><option>"+tableName +".Number</option><option>"+tableName +".Month</option><option>"+tableName +".url</option><option>"+tableName +".ee</option><option>"+tableName +".cdrom</option><option>"+tableName +".cite</option><option>"+tableName +".Note</option><option>"+tableName +".Crossref</option><option>"+tableName +".ISBN</option><option>"+tableName +".Series</option><option>"+tableName +".School</option><option>"+tableName +".Chapter</option><option>"+tableName +".Write</option><option>"+tableName +".Edits</option><option>"+tableName +".key</option><option>"+tableName +".mdate</option><option>"+tableName +".publtype</option><option></select> <img id= 'selectPlus' src='./images/add182.png'>  ");
+          }
+      
+        };
+
+
+
+
+        </script>
     </body>
 </html>
