@@ -1,46 +1,96 @@
 
 <?php $SELECT=  $_POST["SELECT"]; 
-$FROM = $_POST['FROM'];
-$WHERE = $_POST["WHERE"];
+    $FROM = $_POST['FROM'];
+    $WHERE = $_POST["WHERE"];
 
-$query = "SELECT ";
-$index = 0;
-$len = sizeof($SELECT) -1;
-foreach ($SELECT as  $value) {
-    if ($index < $len){
-        $query = $query . $value. ', ' ;
+    $query = "SELECT ";
+    $index = 0;
+    $len = sizeof($SELECT) -1;
+    foreach ($SELECT as  $value) {
+        if ($index < $len){
+            $query = $query . $value. ', ' ;
+        }
+        else{
+            $query = $query . $value;
+        }
+        $index++;
+
+
     }
-    else{
+    $len = sizeof($FROM) - 1;
+    $index = 0;
+    $query = $query . " FROM ";
+    foreach ($FROM as $value) {
+       
+        if ($index < $len){
+            $query = $query . $value. ', ' ;
+        }
+        else{
+            $query = $query . $value;
+        }
+        $index++;
+
+    }
+    $query = $query . " WHERE ";
+    foreach ($WHERE as $value) {
+       
+      
         $query = $query . $value;
+     
+
     }
-    $index++;
+    // echo $query;
+    $servername = "localhost";  
+    $username = "Cecilia";  
+    $password = "helloworld90";
+
+    // $password = NULL;
+
+    $dbname = "DBLP";
+
+    try{
+        // Create connection
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        } 
 
 
-}
-$len = sizeof($FROM) - 1;
-$index = 0;
-$query = $query . '<br>'. "FROM ";
-foreach ($FROM as $value) {
-   
-    if ($index < $len){
-        $query = $query . $value. ', ' ;
+        // $sql  = "SELECT author.name FROM `author` WHERE 1;"; 
+
+        //send query
+        // $result = $conn->query($query);
+        $result = mysqli_query($conn, $query);
+
+
+
+
+        //loop through resulting rows
+        // foreach($result as $row){
+        //     $name =  $row["article.title"];
+        //    echo $name;
+        //    echo ' '; 
+           
+            
+        // }
+
+        while ($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
+            print_r($row); 
+            echo '<br>';
+        }
+
     }
-    else{
-        $query = $query . $value;
+    catch (mysqli_sql_exception $e){
+            throw new MySQLiQueryException($SQL, $e->getMessage(), $e->getCode());
+
     }
-    $index++;
 
-}
-$query = $query . "<br> WHERE ";
-foreach ($WHERE as $value) {
-   
-  
-    $query = $query . $value;
- 
-
-}
-echo $query;
+    //Close connection
+    mysqli_close($conn);
 ?>
+
+
 
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -80,7 +130,7 @@ echo $query;
             <h1>DBLP Explorer</h1>
             <p>Submit query below.</p>
         </div> -->
-        <div class="container text-center">
+<!--         <div class="container text-center">
 
 
             <br><br>
@@ -96,12 +146,8 @@ echo $query;
 
              <button type="submit" class="btn btn-default">Submit</button>
             </form>
-        </div>
-    <script type="text/javascript">	
-
-
-
-    </script>
+        </div> -->
+   
 
     </body>
 </html>

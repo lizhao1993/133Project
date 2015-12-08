@@ -28,6 +28,10 @@
 }
 .WHERE{
 	display: inline-block !important;
+	vertical-align: top;
+}
+.WHERE select{
+	width: 50px;
 }
 
 #minus{
