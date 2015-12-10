@@ -53,8 +53,8 @@
           <!-- FROM , all dropdown for from go here-->
         <span class = 'pquery'><p>FROM </p></span>
                       <div class = 'fromSelect'>
-                          <select  name = 'FROM[]' onchange = "changeAttributes(this.value)"; class = "form-control" form = 'entityForm'>
-                              <option></option>
+                          <select  id = "fromSelect" name = 'FROM[]' onchange = "changeAttributes(this.value)"; class = "form-control" form = 'entityForm'>
+                              <option ></option>
                               <option>Article</option>
                               <option>Inproceddings</option>
                               <option>Procedings</option>
@@ -105,7 +105,7 @@
 
       <!-- FORM, sends the dropdown user selects to page3.php -->
       <div class="container text-center">
-         <form  id = 'entityForm' action ='page3.php' method = 'post'>
+         <form  id = 'entityForm' action ='page3.php' method = 'post' onsubmit="return validateForm()" >
              <button type="submit" class="btn btn-default">Submit</button>
         </form> 
 
@@ -117,7 +117,7 @@
         function fromJoin(){
           
           
-          $(".fromSelect").append("<select name = 'SELECT[]' class = 'form-control' form = 'entityForm' onchange = 'changeAttributes(this.value)'> <option></option><option>Article</option><option>Inproceddings</option><option>Procedings</option><option>Book</option><option>InCollection</option><option>Phdthesis</option><option>Mastersthesis</option><option>Writes</option><option>Edits</option><option>Publishes</option> </select>");
+          $(".fromSelect").append("<select name = 'FROM[]' class = 'form-control' form = 'entityForm' onchange = 'changeAttributes(this.value)'> <option></option><option>Article</option><option>Inproceddings</option><option>Procedings</option><option>Book</option><option>InCollection</option><option>Phdthesis</option><option>Mastersthesis</option><option>Writes</option><option>Edits</option><option>Publishes</option> </select>");
        
 
 
@@ -130,7 +130,7 @@
          
 
           // article is only table with a different schema so it is a special case
-          if (attrOptions.indexOf(tableName+".Editor") <= -1){ //check if tablename is not in attrOptions
+          if (attrOptions.indexOf(tableName+".Editor") <= -1 && tableName != ""){ //check if tablename is not in attrOptions
            newOptions = "";
            if (tableName == "Article"){
 
@@ -156,13 +156,12 @@
 
 
       
-
-
       
         }
+
         id = 0
         function addDropdown(){
-          $(".SELECT").append("<select id = 'SELECT" + id +"'name = 'SELECT[]' class = 'form-control' form = 'entityForm'><option></option>" + attrOptions+ "</select>");
+          $(".SELECT").append("<select id = 'SELECT" + id +"'name = 'SELECT[]' class = 'form-control' form = 'entityForm'><option></option><option>*</option>" + attrOptions+ "</select>");
           id += 1;
         }
         function changeDropdowns(){
@@ -180,7 +179,7 @@
         function addWhereDropdown(){
 
           $(".WHERE").append("<select id = '" + idW +"'name = 'WHERE[]' class = 'form-control' form = 'entityForm'><option></option>" + attrOptions + "</select><br>" );
-          $(".WHERE").append("<select name = 'WHERE[]' class = 'form-control' form = 'entityForm'> <option> > </option> <option> < </option> <option> = </option> <option>!=</option>  <option>>=</option>  <option><=</option> <option>LIKE</option></select><br>" );
+          $(".WHERE").append("<select name = 'WHERE[]' class = 'form-control' form = 'entityForm'><option></option> <option> > </option> <option> < </option> <option> = </option> <option>!=</option>  <option>>=</option>  <option><=</option> <option>LIKE</option></select><br>" );
           idW +=1;
 
           $(".WHERE").append("<select onchange = 'checkForConstant(this.value, this.id)'; id = 'WhereSelect2" + idW +"' name = 'WHERE[]' class = 'form-control' form = 'entityForm'> <option></option><option>CONSTANT</option>" + attrOptions + "</select><br>" );
@@ -190,14 +189,43 @@
         }
         function checkForConstant(selection, id){
           if (selection == "CONSTANT"){
-              $("#"+id).replaceWith("<input name = 'WHERE[]' form = 'entityForm'></input>");
+              $("#"+id).replaceWith("<input name = 'WHERE[]' form = 'entityForm' ></input>");
           }
 
         }
 
 
-       
+        // check here for empty FROM field and empty SELECT field
 
+        //  Bind the event handler to the "submit" JavaScript event
+        function validateForm(){
+
+               console.log($("#fromSelect").value );
+
+
+            // Check if empty of not
+            if ($("#fromSelect").val() === "" ) {
+               //convert to dialog
+                alert('A table was not selected in FROM'); 
+             
+
+                return false;
+
+            }
+        
+            if(!(document.getElementById("SELECT0")) || $("#SELECT0").val() === "" ){ //eleement does not exist
+          
+                alert("No field chosen in SELECT");
+                return false;
+            }
+
+          //loop through all where dropdowns looking for a malformed query there
+
+
+              
+   
+
+        }
 
 
 

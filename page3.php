@@ -1,7 +1,7 @@
 
 <?php $SELECT=  $_POST["SELECT"]; 
     $FROM = $_POST['FROM'];
-    $WHERE = $_POST["WHERE"];
+
 
     $query = "SELECT ";
     $index = 0;
@@ -31,22 +31,33 @@
         $index++;
 
     }
-    $query = $query . " WHERE ";
-    foreach ($WHERE as $value) {
-       
-      
-        $query = $query . $value;
-     
 
-    }
-    // echo $query;
-    $servername = "localhost";  
-    $username = "Cecilia";  
-    $password = "helloworld90";
+
+  
+
+//check if something was sent for WHERE
+        if (isset($_POST["WHERE"]) && !empty($_POST["WHERE"])) {
+
+            $WHERE = $_POST["WHERE"];
+            if ($WHERE[0] != ""){
+                $query = $query . " WHERE ";
+                foreach ($WHERE as $value) {
+               
+                    $query = $query . $value;
+                }
+            }
+
+        }
+
+    
+    echo $query;
 
     // $password = NULL;
 
     $dbname = "DBLP";
+    $servername = "localhost";       
+    $username = "Cecilia";         
+    $password = "helloagain";
 
     try{
         // Create connection
@@ -56,28 +67,16 @@
             die("Connection failed: " . $conn->connect_error);
         } 
 
-
-        // $sql  = "SELECT author.name FROM `author` WHERE 1;"; 
-
-        //send query
-        // $result = $conn->query($query);
         $result = mysqli_query($conn, $query);
+        if (!($result = mysqli_query($conn, $query))){
+          echo("<br>Sorry could not process your query <br> " . mysqli_error($conn));
+        }
 
-
-
-
-        //loop through resulting rows
-        // foreach($result as $row){
-        //     $name =  $row["article.title"];
-        //    echo $name;
-        //    echo ' '; 
-           
-            
-        // }
-
-        while ($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
-            print_r($row); 
-            echo '<br>';
+        else{
+            while ($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
+                print_r($row); 
+                echo '<br>';
+            }
         }
 
     }
